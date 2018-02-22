@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 public interface OpenWeatherMapService {
 
     @GET("/data/2.5/weather")
-    Observable<Forecast> getForecast(@Query("lat") Float lat, @Query("lon") Float lon);
+    Observable<Forecast> getForecast(@Query("lat") double lat, @Query("lon") double lon);
 
 
 }
