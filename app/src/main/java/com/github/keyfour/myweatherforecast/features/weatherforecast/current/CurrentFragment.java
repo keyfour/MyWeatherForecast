@@ -45,6 +45,18 @@ public class CurrentFragment extends Fragment implements CurrentContract.View {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start(getContext());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.stop();
+    }
+
+    @Override
     public void showLocation(Location location) {
         if (location != null) {
             tvLatitude.setText(String.valueOf(location.getLatitude()));
