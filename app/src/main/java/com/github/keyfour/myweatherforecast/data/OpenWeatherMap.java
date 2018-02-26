@@ -15,7 +15,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class OpenWeatherMap {
 
-    private static final String OPENWEATHER_URL = "api.openweathermap.org";
+    private static final String OPENWEATHER_URL = "http://api.openweathermap.org";
 
     private static OpenWeatherMap instance;
     private OpenWeatherMapService service;
