@@ -43,8 +43,12 @@ public class CurrentPresenter implements CurrentContract.Presenter {
 
     @Override
     public void stop() {
-        if (!disposableForecast.isDisposed()) disposableForecast.dispose();
-        if (!disposableLoaction.isDisposed()) disposableLoaction.dispose();
+        if (disposableForecast != null && !disposableForecast.isDisposed()) {
+            disposableForecast.dispose();
+        }
+        if (disposableLoaction != null && !disposableLoaction.isDisposed()) {
+            disposableLoaction.dispose();
+        }
     }
 
     public class CoordinatesObserver implements Observer<Location> {
