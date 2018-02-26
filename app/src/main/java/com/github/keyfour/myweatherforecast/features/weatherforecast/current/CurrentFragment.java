@@ -9,11 +9,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.keyfour.myweatherforecast.R;
 import com.github.keyfour.myweatherforecast.model.pojo.Forecast;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
@@ -41,6 +43,9 @@ public class CurrentFragment extends Fragment implements CurrentContract.View {
 
     @BindView(R.id.tv_press)
     TextView tvPress;
+
+    @BindView(R.id.iv_weather_icon)
+    ImageView ivWeatherIcon;
 
     public CurrentFragment() {
         presenter = new CurrentPresenter(this);
@@ -97,6 +102,9 @@ public class CurrentFragment extends Fragment implements CurrentContract.View {
                     forecast.getMain().getHumidity()));
             tvPress.setText(String.format(Locale.getDefault(), "%d",
                     forecast.getMain().getPressure()));
+            Picasso.with(getContext())
+                    .load("http://openweathermap.org/img/w/"
+                            + forecast.getWeather().get(0).getIcon() + ".png").into(ivWeatherIcon);
         }
     }
 }
