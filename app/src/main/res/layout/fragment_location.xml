@@ -11,39 +11,43 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="16dp"
-        android:paddingBottom="0dp"
+        android:paddingBottom="8dp"
         android:text="@string/location"/>
 
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/latitude"/>
-
-    <TextView
-        android:id="@+id/tv_latitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:padding="16dp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/longtitude"/>
-
-    <TextView
-        android:id="@+id/tv_longtitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:padding="16dp"
-        />
-
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/latitude"
+                android:textSize="12sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/longtitude"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="16dp"
+                />
+            <TextView
+                android:id="@+id/tv_longtitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="16dp"
+                />
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

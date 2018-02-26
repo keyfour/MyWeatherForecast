@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.github.keyfour.myweatherforecast.R;
 import com.github.keyfour.myweatherforecast.model.pojo.Forecast;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,6 +32,15 @@ public class CurrentFragment extends Fragment implements CurrentContract.View {
 
     @BindView(R.id.tv_longtitude)
     TextView tvLongtitude;
+
+    @BindView(R.id.tv_temp)
+    TextView tvTemp;
+
+    @BindView(R.id.tv_hum)
+    TextView tvHum;
+
+    @BindView(R.id.tv_press)
+    TextView tvPress;
 
     public CurrentFragment() {
         presenter = new CurrentPresenter(this);
@@ -75,6 +86,17 @@ public class CurrentFragment extends Fragment implements CurrentContract.View {
 
     @Override
     public void showCurrentForecast(Forecast forecast) {
-
+        if (forecast != null) {
+            tvLatitude.setText(String.format(Locale.getDefault(), "%f",
+                    forecast.getCoord().getLat()));
+            tvLongtitude.setText(String.format(Locale.getDefault(), "%f",
+                    forecast.getCoord().getLon()));
+            tvTemp.setText(String.format(Locale.getDefault(),"%f",
+                    forecast.getMain().getTemp()));
+            tvHum.setText(String.format(Locale.getDefault(), "%d",
+                    forecast.getMain().getHumidity()));
+            tvPress.setText(String.format(Locale.getDefault(), "%d",
+                    forecast.getMain().getPressure()));
+        }
     }
 }
