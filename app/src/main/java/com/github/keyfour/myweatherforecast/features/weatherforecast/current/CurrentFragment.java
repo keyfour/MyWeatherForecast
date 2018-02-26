@@ -16,6 +16,7 @@ import com.github.keyfour.myweatherforecast.R;
 import com.github.keyfour.myweatherforecast.model.pojo.Forecast;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author Alex Karpov <keyfour13@gmail.com>
@@ -41,6 +42,7 @@ public class CurrentFragment extends Fragment implements CurrentContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle bundle) {
         View view = inflater.inflate(R.layout.fragment_wf_current, group, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 
