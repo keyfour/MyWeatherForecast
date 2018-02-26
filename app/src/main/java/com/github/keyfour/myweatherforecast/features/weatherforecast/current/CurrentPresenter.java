@@ -7,9 +7,13 @@ import android.content.Context;
 import android.location.Location;
 
 import com.github.keyfour.myweatherforecast.data.OpenWeatherMap;
+import com.github.keyfour.myweatherforecast.data.SharedPrefUserData;
+import com.github.keyfour.myweatherforecast.data.UserData;
 import com.github.keyfour.myweatherforecast.data.gps.GPSService;
 import com.github.keyfour.myweatherforecast.data.gps.SmartGPS;
 import com.github.keyfour.myweatherforecast.model.pojo.Forecast;
+
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,6 +31,7 @@ public class CurrentPresenter implements CurrentContract.Presenter {
     private final GPSService gpsService;
     private Disposable disposableLoaction;
     private Disposable disposableForecast;
+    private String apiKey = "";
 
     public CurrentPresenter(CurrentContract.View view) {
         this.view = view;
@@ -35,9 +40,12 @@ public class CurrentPresenter implements CurrentContract.Presenter {
 
     @Override
     public void start(Context context) {
+        UserData userData = new SharedPrefUserData(context);
+        apiKey = userData.getOpenWeatherApiKey();
         gpsService.getLocation(context)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .timeout(1, TimeUnit.MINUTES)
                 .safeSubscribe(new CoordinatesObserver());
     }
 
@@ -62,7 +70,7 @@ public class CurrentPresenter implements CurrentContract.Presenter {
         public void onNext(Location location) {
             view.showLocation(location);
             OpenWeatherMap.getInstance().getService().getForecast(location.getLatitude(),
-                    location.getLongitude())
+                    location.getLongitude(), apiKey)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .safeSubscribe(new ForecastObserver());
