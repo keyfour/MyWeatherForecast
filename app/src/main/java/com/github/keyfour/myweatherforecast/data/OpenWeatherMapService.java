@@ -24,8 +24,7 @@ public interface OpenWeatherMapService {
                                      @Query("APPID") String apiKey);
 
     @GET("/data/2.5/forecast")
-    Observer<ForecastList> getFiveDaysForecast(@Query("lat") double lat, @Query("lon") double lon,
+    Observable<ForecastList> getFiveDaysForecast(@Query("lat") double lat, @Query("lon") double lon,
                                                @Query("APPID") String apiKey);
-
 
 }
