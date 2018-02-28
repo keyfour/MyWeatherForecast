@@ -1,6 +1,8 @@
 package com.github.keyfour.myweatherforecast.features.weatherforecast;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,15 +13,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.keyfour.myweatherforecast.R;
+import com.github.keyfour.myweatherforecast.features.login.LoginActivity;
 import com.github.keyfour.myweatherforecast.features.settings.SettingFragment;
 import com.github.keyfour.myweatherforecast.features.weatherforecast.current.CurrentFragment;
 import com.github.keyfour.myweatherforecast.features.weatherforecast.fivedays.FivedaysFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnCompleteListener {
 
 
     @BindView(R.id.toolbar)
@@ -100,10 +108,23 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             getSupportFragmentManager().beginTransaction().replace(R.id.contentFrame,
                     SettingFragment.newInstance()).addToBackStack("Settings").commit();
+        } else if (id == R.id.nav_signout) {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            GoogleSignInClient signInClient = GoogleSignIn.getClient(this, gso);
+            signInClient.signOut().addOnCompleteListener(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onComplete(@NonNull Task task) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 }
