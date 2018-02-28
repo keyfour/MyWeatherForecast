@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 
 repositories {
@@ -50,6 +51,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true;
     }
+    compile 'com.google.android.gms:play-services-auth:11.4.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
